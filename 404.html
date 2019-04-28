@@ -150,7 +150,7 @@ function sig(L, K, x, x0) {
   return 1/(L+pow(Math.E, -K*(x-x0)));
 }
 
-function mousePressed() {
+function touchStarted() {
   for(let i = 0; i < n; ++i) {
   	objects[i].accelerate(createVector(random(-5, 5), -gravity * random(10, 20)));
   }
