@@ -75,6 +75,8 @@ function setup() {
   	objects.push(new GravityObject(random(0, width), random(0, height/4 * 3), random(10, 30), color(random(0, 360), 255, 255), height - 30));
     objects[i].accelerate(createVector(random(-5, 5), 0));
   }
+
+  floorY = height - 30;
 }
 
 function draw() {
@@ -144,6 +146,8 @@ function windowResized() {
   }
 
   resizeCanvas(windowWidth, windowHeight);
+
+  floorY = height - 30;
 }
 
 function sig(L, K, x, x0) {
@@ -166,14 +170,13 @@ function mousePressed() {
 let gravity = 1;
 let friction = 2/30;
 let horizontal_coeff = 1.5;
+let floorY = 100;
 
-function GravityObject(x, y, rad, col, floorY) {
+function GravityObject(x, y, rad, col) {
   this.x = x;
   this.y = y;
   this.xVel = 0;
   this.yVel = 0;
-  
-  this.floorY = floorY;
   
   this.color = col;
   this.rad = rad;
@@ -187,9 +190,9 @@ function GravityObject(x, y, rad, col, floorY) {
     this.x += this.xVel;
     this.y += this.yVel;
     
-    if(this.y + this.rad > this.floorY) {
+    if(this.y + this.rad > floorY) {
       this.yVel = -this.yVel * (1 - friction);
-      this.y = this.floorY - this.rad;
+      this.y = floorY - this.rad;
       
       this.xVel /= horizontal_coeff;
     }
